@@ -40,26 +40,14 @@ public class Price {
         return new Price(this.value * value);
     }
 
-    public Price amountDiscount(int value) {
-        return new Price((int) Math.ceil((this.value * value) / 100));
-    }
-
-    public Price priceWithDiscount(int value) {
-        return this.minus(amountDiscount(value));
-    }
-
     public Price sum(Price price) {
         return new Price(this.value + price.value);
     }
 
-    public Price minus(Price price) {
+    public Price sub(Price price) {
         return new Price(this.value - price.value);
     }
 
-    public Price result(Price total, Price personalDiscountTotal) {
-
-        return new Price(total.minus(personalDiscountTotal));
-    }
 
     @Override
     public String toString() {

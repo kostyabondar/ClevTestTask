@@ -1,4 +1,6 @@
-package beans;
+package beans.Product;
+
+import beans.Price;
 
 public class Product {
     private int id;

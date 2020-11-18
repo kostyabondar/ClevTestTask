@@ -1,5 +1,7 @@
 package beans;
 
+import beans.Product.Product;
+
 public class Commodity {
     private Product product;
     private int units;
@@ -26,16 +28,9 @@ public class Commodity {
         this.units = units;
     }
 
-    public Price getTaxableTotalPriceCommodity() {
-        return new Price(product.getPrice().mul(units));
-    }
-
-    public Price getTotalPriceCommodity() {
-        return getTaxableTotalPriceCommodity();
-    }
 
     @Override
     public String toString() {
-        return product + "\t" + units + "\t" + getTotalPriceCommodity();
+        return product + "\t" + units + "\t";
     }
 }
