@@ -6,6 +6,10 @@ public class CardDiscount {
     private String cardNumber;
     private int discountPercent;
 
+    public CardDiscount() {
+        this("", 0);
+    }
+
     public CardDiscount(String cardNumber, int discountPercent) {
         this.cardNumber = cardNumber;
         this.discountPercent = discountPercent;

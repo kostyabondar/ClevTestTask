@@ -1,4 +1,4 @@
-package beans.Product;
+package beans.product;
 
 import beans.Price;
 
@@ -7,11 +7,16 @@ public class Product {
     private String name;
     private Price price;
 
+    public Product() {
+        this(0, "", new Price());
+    }
+
     public Product(int id, String name, Price price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
+
     public Product(int id, String name, int price) {
         this.id = id;
         this.name = name;

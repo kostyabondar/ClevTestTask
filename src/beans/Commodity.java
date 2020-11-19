@@ -1,11 +1,10 @@
 package beans;
 
-import beans.Product.Product;
+import beans.product.Product;
 
 public class Commodity {
     private Product product;
     private int units;
-
 
     public Commodity(Product product, int units) {
         this.product = product;

@@ -17,7 +17,7 @@ public class ReceiptCalculator {
     }
 
     public static Price getDiscountOnPosition(ReceiptPosition position) {
-        return getDiscount(getTotalOnPosition(position), DISCOUNT_PERCENT_FOR_QUANTITY);
+        return new Price((int) Math.floor(position.getTotal().getValue() * DISCOUNT_PERCENT_FOR_QUANTITY) / 100);
     }
 
     public static Price getTotalWithDiscountOnPosition(ReceiptPosition position) {
@@ -25,8 +25,14 @@ public class ReceiptCalculator {
     }
 
     private static Price getDiscount(Price price, int discountPercent) {
-        return new Price((int) Math.ceil(price.getValue() * discountPercent) / 100);
+        return new Price((int) Math.floor(price.getValue() * discountPercent) / 100);
     }
+//    public static Price getTaxableTotalByReceipt(List<ReceiptPosition> receiptPositions){
+//
+//    }
+//    public static Price getTotalDiscountByReceipt(List<ReceiptPosition> receiptPositions){}
+//    public static Price getDiscountCardByReceipt(List<ReceiptPosition> receiptPositions){}
+//    public static Price getTotalByReceipt(List<ReceiptPosition> receiptPositions){}
 
     public static Price[] getTotal(List<ReceiptPosition> receiptPositions, CardDiscount card) {
 
@@ -38,8 +44,9 @@ public class ReceiptCalculator {
         for (ReceiptPosition position :
                 receiptPositions) {
             taxableTotal = new Price(taxableTotal.sum(position.getTotal()));
-            discountCommodity = new Price(discountCommodity.sum(position.getDiscount()));
-
+            if (position instanceof DiscountReceiptPosition) {
+                discountCommodity = new Price(discountCommodity.sum(((DiscountReceiptPosition) position).getDiscount()));
+            }
         }
         if (card != null) {
             cardDiscount = getDiscount(taxableTotal, card.getDiscountPercent());
