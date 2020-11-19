@@ -1,13 +1,12 @@
 
-import beans.card.CardListFromMemory;
-import beans.product.ProductListFromMemory;
 import beans.receipt.ReceiptGenerator;
 import beans.receipt.ReceiptPrinter;
 
 public class Runner {
     public static void main(String[] args) {
 
-        String[] strings = new String[]{"3-1", "2-10", "4-1", "3-1234", "card-1234"};
-        ReceiptPrinter.printReceipt(ReceiptGenerator.generate(strings, new ProductListFromMemory(), new CardListFromMemory()));
+        //        String[] strings = new String[]{"files-productList-cardList", "1-1", "2-10", "3-1", "44-1234", "card-1234 444"};
+//        String[] strings = new String[]{ "1-1", "2-10", "3-1", "44-1234", "card-412"};
+        ReceiptPrinter.printReceiptToConsoleAndSaveInFile(ReceiptGenerator.generate(args));
     }
 }

@@ -4,26 +4,37 @@ import beans.Commodity;
 import beans.Price;
 import beans.card.CardDiscount;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Formatter;
 
 import static constants.Constants.*;
 
 public class ReceiptPrinter {
 
-    private static final int DIVIDING_LINE_LENGTH = 58;
-    private static final char PART_SEPARATOR = '#';
-    private static final char RECEIPT_POSITION_SEPARATOR = '-';
+    private static StringBuilder builder = new StringBuilder();
 
-    public static void printReceipt(Receipt receipt) {
+    public static void printReceiptToConsoleAndSaveInFile(Receipt receipt) {
         getHeader();
         getBody(receipt);
         getFooter(receipt);
+        try {
+            FileWriter writer = new FileWriter(PATH_PRINTED_RECEIPT, true);
+            writer.write(String.valueOf(builder));
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(builder.toString());
     }
 
     private static void getHeader() {
         Date date = new Date();
-        System.out.printf("%n%45s\t%3$td/%3$tm/%3$tY%n%45s\t%3$tH:%3$tM:%3$tS%n", "DATE:", "TIME:", date);
+        Formatter formatter = new Formatter();
+        dividingLine(UP_AND_DOWN);
+        builder.append(formatter.format("%n%45s\t%3$td/%3$tm/%3$tY%n%45s\t%3$tH:%3$tM:%3$tS%n", "DATE:", "TIME:", date));
     }
 
     private static void getBody(Receipt receipt) {
@@ -48,13 +59,14 @@ public class ReceiptPrinter {
 
     private static void dividingLine(char delimiter) {
         for (int i = 0; i < DIVIDING_LINE_LENGTH; i++) {
-            System.out.print(delimiter);
+            builder.append(delimiter);
         }
-        System.out.println();
+        builder.append("\n");
     }
 
     private static void printRow(String qtyRow, String descriptionRow, String priceRow, String totalRow) {
-        System.out.printf(FORMAT_FOR_BODY, qtyRow, descriptionRow, priceRow, totalRow);
+        Formatter formatter = new Formatter();
+        builder.append(formatter.format(FORMAT_FOR_BODY, qtyRow, descriptionRow, priceRow, totalRow));
     }
 
     private static void getFooter(Receipt receipt) {
@@ -78,13 +90,16 @@ public class ReceiptPrinter {
                 DISCOUNT_PERCENT_AND_QUANTITY,
                 TOTAL
         };
+
         for (int i = 0; i < totals.length; i++) {
-            System.out.printf(
+            Formatter formatter = new Formatter();
+            builder.append(formatter.format(
                     FORMAT_FOR_FOOTER,
                     titlesForFooter[i],
                     totals[i]
-            );
+            ));
         }
-        dividingLine(PART_SEPARATOR);
+        dividingLine(UP_AND_DOWN);
+        builder.append("END\n");
     }
 }

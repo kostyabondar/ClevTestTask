@@ -9,9 +9,12 @@ public class CardListFromMemory implements ICardStore {
 
     private static List<CardDiscount> cardDiscounts = getInitialCards();
 
+    public CardListFromMemory() {
+    }
+
     private static List<CardDiscount> getInitialCards() {
         cardDiscounts = new ArrayList<>();
-        cardDiscounts.add(new CardDiscount("1234", 10));
+        cardDiscounts.add(new CardDiscount("1234", 11));
         cardDiscounts.add(new CardDiscount("234534", 5));
         cardDiscounts.add(new CardDiscount("11111", 11));
         cardDiscounts.add(new CardDiscount("412", 4));
@@ -20,15 +23,11 @@ public class CardListFromMemory implements ICardStore {
         return cardDiscounts;
     }
 
-    public CardListFromMemory() {
-    }
-
     @Override
     public CardDiscount getCardDiscountByName(String name) {
         CardDiscount presentedCardDiscount = null;
         for (CardDiscount cardDiscount : cardDiscounts) {
-
-            if (cardDiscount.equals(new CardDiscount(name))) {
+            if (cardDiscount.getCardNumber().equals(name)) {
                 presentedCardDiscount = cardDiscount;
             }
         }
