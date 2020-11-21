@@ -1,4 +1,4 @@
 out/
 .idea/
-*.iml
-bin/**/*.class
+ClevertecJavaTask1/target/
+ClevertecJavaTask1/bin/**/*.class

@@ -1,7 +1,7 @@
-# ClevTestTask
+# ClevertecJavaTask
 
 ##  How to compile?
-javac -sourcepath ./src -d bin src/Runner.java
+javac -sourcepath ./src/main/java -d bin src/main/java/Runner.java
 
 ##  How to run?
 java -classpath ./bin Runner 3-1 2-5 5-1 card-1234
