@@ -2,3 +2,4 @@ out/
 .idea/
 ClevertecJavaTask1/target/
 ClevertecJavaTask1/bin/**/*.class
+ClevTestWeb/bin/**/*.class
